@@ -1,8 +1,6 @@
 <?php
 
-
 namespace RequestParam\Bundle\Service\Provider;
-
 
 use RequestParam\Bundle\Model\Context\DtoProviderContext;
 use Symfony\Component\HttpFoundation\Request;

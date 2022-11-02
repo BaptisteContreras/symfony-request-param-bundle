@@ -1,8 +1,6 @@
 <?php
 
-
 namespace RequestParam\Bundle\Tool\Builder\Context;
-
 
 use RequestParam\Bundle\Configuration\DtoRequestParam;
 use RequestParam\Bundle\Model\Context\DtoProviderContext;

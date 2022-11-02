@@ -1,8 +1,6 @@
 <?php
 
-
 namespace RequestParam\Bundle\Configuration;
-
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 

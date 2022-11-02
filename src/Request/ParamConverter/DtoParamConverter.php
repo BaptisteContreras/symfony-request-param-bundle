@@ -1,8 +1,6 @@
 <?php
 
-
 namespace RequestParam\Bundle\Request\ParamConverter;
-
 
 use RequestParam\Bundle\Configuration\AutoProvideRequestDto;
 use RequestParam\Bundle\Configuration\DtoRequestParam;
@@ -18,7 +16,9 @@ class DtoParamConverter implements ParamConverterInterface
 {
     private const CONTROLLER_ATTRIBUTE = '_controller';
 
-    public function __construct(private readonly DtoProviderInterface $dtoProvider) {}
+    public function __construct(private readonly DtoProviderInterface $dtoProvider)
+    {
+    }
 
     /**
      * @throws \ReflectionException
@@ -27,17 +27,14 @@ class DtoParamConverter implements ParamConverterInterface
      */
     public function apply(Request $request, ParamConverter $configuration)
     {
-        if (!$controllerAttribute = $request->attributes->get(self::CONTROLLER_ATTRIBUTE))
-        {
-
+        if (!$controllerAttribute = $request->attributes->get(self::CONTROLLER_ATTRIBUTE)) {
             throw new MissingRequestControllerAttributeException(self::CONTROLLER_ATTRIBUTE);
         }
 
         $taggedParameters = $this->getTaggedParameters($controllerAttribute);
 
         /** @var \ReflectionParameter $taggedDtoParameter */
-        foreach ($taggedParameters as $taggedDtoParameter)
-        {
+        foreach ($taggedParameters as $taggedDtoParameter) {
             $dtoRequestParamAttributes = $taggedDtoParameter->getAttributes(DtoRequestParam::class);
             $paramAttribute = array_shift($dtoRequestParamAttributes);
 
@@ -46,7 +43,6 @@ class DtoParamConverter implements ParamConverterInterface
                 $request
             );
         }
-
 
         return !empty($dtoParameters);
     }
@@ -58,6 +54,7 @@ class DtoParamConverter implements ParamConverterInterface
 
     /**
      * @return array<\ReflectionParameter>
+     *
      * @throws \ReflectionException
      * @throws RequestParameterMustBeObjectException
      */
@@ -70,17 +67,14 @@ class DtoParamConverter implements ParamConverterInterface
 
         $controllerReflection = new \ReflectionClass($controllerClass);
 
-        return array_filter($controllerReflection->getMethod($controllerMethod)->getParameters(), function (\ReflectionParameter $reflectionParameter)  {
+        return array_filter($controllerReflection->getMethod($controllerMethod)->getParameters(), function (\ReflectionParameter $reflectionParameter) {
             $canAutoProvide = 1 === count($reflectionParameter->getAttributes(DtoRequestParam::class));
 
             if ($canAutoProvide && $reflectionParameter->getType()->isBuiltin()) {
-
                 throw new RequestParameterMustBeObjectException($reflectionParameter->getName());
             }
 
             return $canAutoProvide;
         });
     }
-
-
 }
