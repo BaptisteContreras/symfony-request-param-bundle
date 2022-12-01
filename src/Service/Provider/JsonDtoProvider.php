@@ -36,6 +36,6 @@ class JsonDtoProvider implements DtoProviderDriver
 
     public function supports(SourceType $sourceType): bool
     {
-        return false;
+        return SourceType::JSON === $sourceType;
     }
 }
