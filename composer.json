@@ -1,5 +1,5 @@
 {
-  "name": "baptistecontreras/symfony-request-param-bundle",
+  "name": "baptiste-contreras/symfony-request-param-bundle",
   "description": "Symfony bundle to be able to use object request parameter",
   "type": "symfony-bundle",
   "license": "MIT",
@@ -10,14 +10,15 @@
     "symfony/dependency-injection": "~4.4 || ^5.0 || ^6.0",
     "sensio/framework-extra-bundle": "~4.4 || ^5.0 || ^6.0",
     "symfony/http-kernel":  "~4.4 || ^5.0 || ^6.0",
-    "symfony/serializer": "6.2.x-dev"
+    "symfony/serializer": "~4.4 || ^5.0 || ^6.0",
+    "symfony/serializer-pack": "^v1.1.0"
   },
   "conflict": {
     "ext-swoole": "<4.6.0"
   },
   "autoload": {
     "psr-4": {
-      "RequestParam\\Bundle\\": "src/"
+      "BaptisteContreras\\SymfonyRequestParamBundle\\": "src/"
     }
   },
   "require-dev": {

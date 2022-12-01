@@ -1,9 +1,9 @@
 <?php
 
-namespace RequestParam\Bundle;
+namespace BaptisteContreras\SymfonyRequestParamBundle;
 
-use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
+use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class RequestParamBundle extends AbstractBundle
+class RequestParamBundle extends Bundle
 {
 }

@@ -1,8 +1,8 @@
 <?php
 
-namespace RequestParam\Bundle\Service\Provider;
+namespace BaptisteContreras\SymfonyRequestParamBundle\Service\Provider;
 
-use RequestParam\Bundle\Model\Context\DtoProviderContext;
+use BaptisteContreras\SymfonyRequestParamBundle\Model\Context\DtoProviderContext;
 use Symfony\Component\HttpFoundation\Request;
 
 /**

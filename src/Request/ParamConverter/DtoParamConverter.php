@@ -1,13 +1,13 @@
 <?php
 
-namespace RequestParam\Bundle\Request\ParamConverter;
+namespace BaptisteContreras\SymfonyRequestParamBundle\Request\ParamConverter;
 
-use RequestParam\Bundle\Configuration\AutoProvideRequestDto;
-use RequestParam\Bundle\Configuration\DtoRequestParam;
-use RequestParam\Bundle\Exception\MissingRequestControllerAttributeException;
-use RequestParam\Bundle\Exception\RequestParameterMustBeObjectException;
-use RequestParam\Bundle\Service\Provider\DtoProviderInterface;
-use RequestParam\Bundle\Tool\Builder\Context\DtoProviderContextBuilder;
+use BaptisteContreras\SymfonyRequestParamBundle\Configuration\AutoProvideRequestDto;
+use BaptisteContreras\SymfonyRequestParamBundle\Configuration\DtoRequestParam;
+use BaptisteContreras\SymfonyRequestParamBundle\Exception\MissingRequestControllerAttributeException;
+use BaptisteContreras\SymfonyRequestParamBundle\Exception\RequestParameterMustBeObjectException;
+use BaptisteContreras\SymfonyRequestParamBundle\Service\Provider\DtoProviderInterface;
+use BaptisteContreras\SymfonyRequestParamBundle\Tool\Builder\Context\DtoProviderContextBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -42,6 +42,8 @@ class DtoParamConverter implements ParamConverterInterface
                 DtoProviderContextBuilder::buildFromAttribute($paramAttribute->newInstance(), $taggedDtoParameter->getType()->getName()),
                 $request
             );
+
+            $request->attributes->set($taggedDtoParameter->getName(), $dto);
         }
 
         return !empty($dtoParameters);

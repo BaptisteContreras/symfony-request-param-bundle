@@ -2,9 +2,22 @@
 
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service id="RequestParam\Bundle\Service\Provider\JsonDtoProvider" class="RequestParam\Bundle\Service\Provider\JsonDtoProvider" public="false">
+        <service id="BaptisteContreras\SymfonyRequestParamBundle\Service\Provider\JsonDtoProvider" class="BaptisteContreras\SymfonyRequestParamBundle\Service\Provider\JsonDtoProvider" public="false">
             <argument type="service" id="serializer" />
+            <argument type="service" id="logger" />
+            <tag name="request-param.dto-provider-driver" />
         </service>
-        <service id="request-param.dto.provider.json" alias="RequestParam\Bundle\Service\Provider\JsonDtoProvider" public="true" />
+        <service id="request-param.dto.provider.json" alias="BaptisteContreras\SymfonyRequestParamBundle\Service\Provider\JsonDtoProvider" public="true" />
+
+        <service id="BaptisteContreras\SymfonyRequestParamBundle\Service\Provider\GenericDtoProvider" class="BaptisteContreras\SymfonyRequestParamBundle\Service\Provider\GenericDtoProvider" public="false">
+            <argument type="tagged_iterator" tag="request-param.dto-provider-driver"/>
+        </service>
+        <service id="request-param.dto.provider.generic" alias="BaptisteContreras\SymfonyRequestParamBundle\Service\Provider\GenericDtoProvider" public="true" />
+
+        <service id="BaptisteContreras\SymfonyRequestParamBundle\Request\ParamConverter\DtoParamConverter" class="BaptisteContreras\SymfonyRequestParamBundle\Request\ParamConverter\DtoParamConverter" public="false">
+            <argument type="service" id="request-param.dto.provider.generic" />
+            <tag name="request.param_converter" />
+        </service>
+        <service id="request-param.dto.param.converter" alias="BaptisteContreras\SymfonyRequestParamBundle\Request\ParamConverter\DtoParamConverter" public="true" />
     </services>
 </container>

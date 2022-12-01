@@ -1,6 +1,6 @@
 <?php
 
-namespace RequestParam\Bundle\Exception;
+namespace BaptisteContreras\SymfonyRequestParamBundle\Exception;
 
 class MissingRequestControllerAttributeException extends \Exception
 {

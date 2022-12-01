@@ -1,6 +1,6 @@
 <?php
 
-namespace RequestParam\Bundle\Model\Enum;
+namespace BaptisteContreras\SymfonyRequestParamBundle\Model\Enum;
 
 enum SourceType: string
 {

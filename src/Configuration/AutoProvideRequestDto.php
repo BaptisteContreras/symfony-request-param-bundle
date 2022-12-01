@@ -1,6 +1,6 @@
 <?php
 
-namespace RequestParam\Bundle\Configuration;
+namespace BaptisteContreras\SymfonyRequestParamBundle\Configuration;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
