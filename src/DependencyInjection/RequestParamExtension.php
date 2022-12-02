@@ -2,7 +2,9 @@
 
 namespace BaptisteContreras\SymfonyRequestParamBundle\DependencyInjection;
 
-use BaptisteContreras\SymfonyRequestParamBundle\Service\Provider\DtoProviderDriver;
+use BaptisteContreras\SymfonyRequestParamBundle\Service\Presenter\ErrorPresenterDriverInterface;
+use BaptisteContreras\SymfonyRequestParamBundle\Service\Provider\DtoProviderDriverInterface;
+use BaptisteContreras\SymfonyRequestParamBundle\Service\Validator\DtoValidatorDriverInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
@@ -28,8 +30,16 @@ class RequestParamExtension extends Extension
 
     private function autoConfiguration(ContainerBuilder $container): void
     {
-        $container->registerForAutoconfiguration(DtoProviderDriver::class)
+        $container->registerForAutoconfiguration(DtoProviderDriverInterface::class)
             ->addTag(Tag::DTO_PROVIDER_DRIVER)
+        ;
+
+        $container->registerForAutoconfiguration(DtoValidatorDriverInterface::class)
+            ->addTag(Tag::DTO_VALIDATOR_DRIVER)
+        ;
+
+        $container->registerForAutoconfiguration(ErrorPresenterDriverInterface::class)
+            ->addTag(Tag::ERROR_PRESENTER_DRIVER)
         ;
     }
 }

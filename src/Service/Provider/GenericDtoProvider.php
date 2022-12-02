@@ -2,35 +2,36 @@
 
 namespace BaptisteContreras\SymfonyRequestParamBundle\Service\Provider;
 
-use BaptisteContreras\SymfonyRequestParamBundle\Exception\NoDtoDriverFoundException;
+use BaptisteContreras\SymfonyRequestParamBundle\Exception\NoDtoProviderDriverFoundException;
 use BaptisteContreras\SymfonyRequestParamBundle\Model\Context\DtoProviderContext;
-use BaptisteContreras\SymfonyRequestParamBundle\Model\Enum\SourceType;
 use Symfony\Component\HttpFoundation\Request;
 
 class GenericDtoProvider implements DtoProviderInterface
 {
-    /**         Properties         **/
-
-    /**         Constructor         **/
     public function __construct(private readonly iterable $drivers)
     {
     }
 
-    /**         Methods         **/
+    /**
+     * @throws NoDtoProviderDriverFoundException
+     */
     public function fromRequest(DtoProviderContext $context, Request $request): mixed
     {
-        return $this->selectDriver($context->getSourceType())->fromRequest($context, $request);
+        return $this->selectDriver($context)->fromRequest($context, $request);
     }
 
-    private function selectDriver(SourceType $sourceType): DtoProviderDriver
+    /**
+     * @throws NoDtoProviderDriverFoundException
+     */
+    private function selectDriver(DtoProviderContext $context): DtoProviderDriverInterface
     {
-        /** @var DtoProviderDriver $driver */
+        /** @var DtoProviderDriverInterface $driver */
         foreach ($this->drivers as $driver) {
-            if ($driver->supports($sourceType)) {
+            if ($driver->supports($context)) {
                 return $driver;
             }
         }
 
-        throw new NoDtoDriverFoundException($sourceType);
+        throw new NoDtoProviderDriverFoundException($context->getSourceType());
     }
 }

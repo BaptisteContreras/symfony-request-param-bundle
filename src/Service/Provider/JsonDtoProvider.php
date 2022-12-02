@@ -3,13 +3,13 @@
 namespace BaptisteContreras\SymfonyRequestParamBundle\Service\Provider;
 
 use BaptisteContreras\SymfonyRequestParamBundle\Model\Context\DtoProviderContext;
-use BaptisteContreras\SymfonyRequestParamBundle\Model\Enum\SourceType;
+use BaptisteContreras\SymfonyRequestParamBundle\Model\SourceType;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\SerializerInterface;
 
-class JsonDtoProvider implements DtoProviderDriver
+class JsonDtoProvider implements DtoProviderDriverInterface
 {
     public function __construct(private readonly SerializerInterface $serializer, private LoggerInterface $logger)
     {
@@ -20,7 +20,7 @@ class JsonDtoProvider implements DtoProviderDriver
         try {
             return $this->serializer->deserialize($request->getContent(), $context->getDtoClass(), JsonEncoder::FORMAT, []);
         } catch (\Throwable $exception) {
-            if ($context->shouldThrowException()) {
+            if ($context->shouldThrowDeserializationException()) {
                 throw $exception;
             }
 
@@ -34,8 +34,8 @@ class JsonDtoProvider implements DtoProviderDriver
         }
     }
 
-    public function supports(SourceType $sourceType): bool
+    public function supports(DtoProviderContext $dtoProviderContext): bool
     {
-        return SourceType::JSON === $sourceType;
+        return SourceType::JSON === $dtoProviderContext->getSourceType();
     }
 }

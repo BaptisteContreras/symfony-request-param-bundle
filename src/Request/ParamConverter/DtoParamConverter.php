@@ -6,18 +6,24 @@ use BaptisteContreras\SymfonyRequestParamBundle\Configuration\AutoProvideRequest
 use BaptisteContreras\SymfonyRequestParamBundle\Configuration\DtoRequestParam;
 use BaptisteContreras\SymfonyRequestParamBundle\Exception\MissingRequestControllerAttributeException;
 use BaptisteContreras\SymfonyRequestParamBundle\Exception\RequestParameterMustBeObjectException;
+use BaptisteContreras\SymfonyRequestParamBundle\Service\Handler\Error\ErrorHandlerInterface;
 use BaptisteContreras\SymfonyRequestParamBundle\Service\Provider\DtoProviderInterface;
+use BaptisteContreras\SymfonyRequestParamBundle\Service\Validator\DtoValidatorInterface;
 use BaptisteContreras\SymfonyRequestParamBundle\Tool\Builder\Context\DtoProviderContextBuilder;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 class DtoParamConverter implements ParamConverterInterface
 {
     private const CONTROLLER_ATTRIBUTE = '_controller';
 
-    public function __construct(private readonly DtoProviderInterface $dtoProvider)
-    {
+    public function __construct(
+        private readonly DtoProviderInterface $dtoProvider,
+        private readonly DtoValidatorInterface $dtoValidator,
+        private readonly ErrorHandlerInterface $errorHandler
+    ) {
     }
 
     /**
@@ -38,10 +44,21 @@ class DtoParamConverter implements ParamConverterInterface
             $dtoRequestParamAttributes = $taggedDtoParameter->getAttributes(DtoRequestParam::class);
             $paramAttribute = array_shift($dtoRequestParamAttributes);
 
-            $dto = $this->dtoProvider->fromRequest(
-                DtoProviderContextBuilder::buildFromAttribute($paramAttribute->newInstance(), $taggedDtoParameter->getType()->getName()),
-                $request
+            $context = DtoProviderContextBuilder::buildFromAttribute(
+                $paramAttribute->newInstance(),
+                $taggedDtoParameter->getType()->getName()
             );
+
+            $dto = $this->dtoProvider->fromRequest($context, $request);
+            $isDtoOk = null !== $dto;
+
+            if ($isDtoOk && $context->shouldValidateDto()) {
+                $contraintViolations = $this->dtoValidator->validateDto($context, $dto);
+
+                if ($this->hasFailedValidation($contraintViolations)) {
+                    throw $this->errorHandler->handleValidationError($context, $contraintViolations, $dto);
+                }
+            }
 
             $request->attributes->set($taggedDtoParameter->getName(), $dto);
         }
@@ -78,5 +95,10 @@ class DtoParamConverter implements ParamConverterInterface
 
             return $canAutoProvide;
         });
+    }
+
+    private function hasFailedValidation(ConstraintViolationListInterface $constraintViolationList): bool
+    {
+        return 0 !== $constraintViolationList->count();
     }
 }
