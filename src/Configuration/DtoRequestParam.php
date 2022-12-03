@@ -7,6 +7,9 @@ use BaptisteContreras\SymfonyRequestParamBundle\Model\SourceType;
 #[\Attribute(\Attribute::TARGET_PARAMETER)]
 class DtoRequestParam
 {
+    /**
+     * @param array<string>|string $validationGroups
+     */
     public function __construct(
         private readonly string $sourceType = SourceType::JSON,
         private readonly bool $throwDeserializationException = true,
@@ -31,6 +34,9 @@ class DtoRequestParam
         return $this->validateDto;
     }
 
+    /**
+     * @return array<string>|string
+     */
     public function getValidationGroups(): array|string
     {
         return $this->validationGroups;

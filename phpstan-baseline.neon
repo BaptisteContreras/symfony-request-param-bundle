@@ -1,0 +1,36 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Method BaptisteContreras\\\\SymfonyRequestParamBundle\\\\DependencyInjection\\\\RequestParamExtension\\:\\:load\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: src/DependencyInjection/RequestParamExtension.php
+
+		-
+			message: "#^Parameter \\#1 \\$requestDtoException of method BaptisteContreras\\\\SymfonyRequestParamBundle\\\\Service\\\\Presenter\\\\ErrorPresenterInterface\\:\\:presentResponse\\(\\) expects BaptisteContreras\\\\SymfonyRequestParamBundle\\\\Exception\\\\RequestDtoException, Throwable given\\.$#"
+			count: 1
+			path: src/Listener/RequestDtoExceptionListener.php
+
+		-
+			message: "#^Cannot call method getName\\(\\) on ReflectionType\\|null\\.$#"
+			count: 1
+			path: src/Request/ParamConverter/DtoParamConverter.php
+
+		-
+			message: "#^Cannot call method isBuiltin\\(\\) on ReflectionType\\|null\\.$#"
+			count: 1
+			path: src/Request/ParamConverter/DtoParamConverter.php
+
+		-
+			message: "#^Cannot call method newInstance\\(\\) on ReflectionAttribute\\<BaptisteContreras\\\\SymfonyRequestParamBundle\\\\Configuration\\\\DtoRequestParam\\>\\|null\\.$#"
+			count: 1
+			path: src/Request/ParamConverter/DtoParamConverter.php
+
+		-
+			message: "#^Parameter \\#1 \\$controllerAttribute of method BaptisteContreras\\\\SymfonyRequestParamBundle\\\\Request\\\\ParamConverter\\\\DtoParamConverter\\:\\:getTaggedParameters\\(\\) expects string, mixed given\\.$#"
+			count: 1
+			path: src/Request/ParamConverter/DtoParamConverter.php
+
+		-
+			message: "#^Parameter \\#1 \\$objectOrClass of class ReflectionClass constructor expects class\\-string\\<T of object\\>\\|T of object, string given\\.$#"
+			count: 1
+			path: src/Request/ParamConverter/DtoParamConverter.php

@@ -9,6 +9,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class GenericErrorPresenter implements ErrorPresenterInterface
 {
+    /**
+     * @param iterable<ErrorPresenterDriverInterface> $drivers
+     */
     public function __construct(private readonly iterable $drivers)
     {
     }

@@ -63,7 +63,7 @@ class DtoParamConverter implements ParamConverterInterface
             $request->attributes->set($taggedDtoParameter->getName(), $dto);
         }
 
-        return !empty($dtoParameters);
+        return !empty($taggedParameters);
     }
 
     public function supports(ParamConverter $configuration): bool

@@ -4,6 +4,9 @@ namespace BaptisteContreras\SymfonyRequestParamBundle\Model\Context;
 
 final class DtoProviderContext
 {
+    /**
+     * @param array<string> $validationGroups
+     */
     public function __construct(
         private readonly string $dtoClass,
         private readonly string $sourceType,
@@ -34,6 +37,9 @@ final class DtoProviderContext
         return $this->validateDto;
     }
 
+    /**
+     * @return array<string>
+     */
     public function getValidationGroups(): array
     {
         return $this->validationGroups;

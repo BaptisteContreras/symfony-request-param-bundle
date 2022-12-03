@@ -8,6 +8,9 @@ use Symfony\Component\Validator\ConstraintViolationListInterface;
 
 class GenericDtoValidator implements DtoValidatorInterface
 {
+    /**
+     * @param iterable<DtoValidatorDriverInterface> $drivers
+     */
     public function __construct(private readonly iterable $drivers)
     {
     }

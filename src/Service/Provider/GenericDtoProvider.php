@@ -8,6 +8,9 @@ use Symfony\Component\HttpFoundation\Request;
 
 class GenericDtoProvider implements DtoProviderInterface
 {
+    /**
+     * @param iterable<DtoProviderDriverInterface> $drivers
+     */
     public function __construct(private readonly iterable $drivers)
     {
     }
