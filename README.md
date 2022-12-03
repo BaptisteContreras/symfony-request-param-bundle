@@ -31,7 +31,6 @@ Several parameters are available for the **DtoRequestParam**, and it let you mod
 - throwDeserializationException
 - validateDto
 - validationGroups
-- throwValidationException
 
 ### sourceType
 - string **sourceType**. Default value **SourceType::JSON**. This let you indicate the type of the input data. 
@@ -184,24 +183,9 @@ class RegisterController extends AbstractApiController
 For the moment only the **json** source is supported. You can extend the bundle by creating a **DtoProviderDriverInterface** for your needs.
 Any object that implements this interface will be used internally without any additional action.
 
-When your custom provider returns true if its **supports** method is called, it will be selected for the deserialization.
+When your custom provider's **supports** method is called and return true, it will be selected for the deserialization.
 
 Here is an example for an XML provider.
-
-You can play with the tag priority of you custom provider if you want to ensure that it's called first. [Here is the documentation about that](https://symfony.com/doc/current/service_container/tags.html#tagged-services-with-priority)
-
-**request_param.dto-provider-driver** is the tag associated with the **DtoProviderDriverInterface**.
-
-An example if you need to modify the priority of your custom provider
-
-```yaml
-# services.yaml
-
-    App\CustomProvider:
-        class: 'App\CustomProvider'
-        tags:
-            - { name: "request_param.dto-provider-driver", priority: 20 }
-```
 
 ```php
 class CustomXmlProvider implements DtoProviderDriverInterface
@@ -231,6 +215,21 @@ class CustomXmlProvider implements DtoProviderDriverInterface
         return 'xml' === $dtoProviderContext->getSourceType(); // You can add more logic if needed
     }
 }
+```
+
+You can play with the tag priority of you custom provider if you want to ensure that it's called first. [Here is the documentation about that](https://symfony.com/doc/current/service_container/tags.html#tagged-services-with-priority)
+
+**request_param.dto-provider-driver** is the tag associated with the **DtoProviderDriverInterface**.
+
+An example if you need to modify the priority of your custom provider
+
+```yaml
+# services.yaml
+
+    App\CustomProvider:
+        class: 'App\CustomProvider'
+        tags:
+            - { name: "request_param.dto-provider-driver", priority: 20 }
 ```
 
 ### JsonDtoProvider
@@ -341,7 +340,7 @@ Here is an example of 2 responses :
 
 ```
 
-You can easily modify this response format. In fact, this presenter use 1 decorator stack to create a response array.
+You can easily modify this response format. In fact, this presenter use decorator stacks to create a response array.
 
 
 [Symfony's decorator](https://symfony.com/doc/current/service_container/service_decoration.html)
@@ -430,7 +429,7 @@ And voila
 }
 ```
 
-With this decorator approache you can really customize the json response easily
+With this decorator approach you can really easily customize the json response 
 
 
 ```yaml
