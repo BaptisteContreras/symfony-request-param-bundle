@@ -413,7 +413,7 @@ We need to add a little more configuration in the **services.yaml**
       - App\CustomJsonFormatter: ~
       - alias: stack_response_formatter_json_bad_request_default  
       # In this configuration, our formatter is the first in the chain, and we include the default chain
-
+      # stack_response_formatter_json_bad_request_default is an alias for request_param.response.formatter.json.validation AND request_param.response.formatter.json.default
 ```
 
 And voila 
@@ -444,7 +444,7 @@ With this decorator approache you can really customize the json response easily
       - App\CustomJsonFormatter: ~
       - alias: request_param.response.formatter.json.validation
       # In this configuration, our formatter is the first in the chain, and we only include the "validation formatter"
-
+    
 ```
 
 Will produce:
