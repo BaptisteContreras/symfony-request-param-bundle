@@ -25,6 +25,7 @@ class RequestParamExtension extends Extension
             new FileLocator(__DIR__.'/../Resources/config')
         );
 
+        $loader->load('response_services.xml');
         $loader->load('bundle_services.xml');
     }
 

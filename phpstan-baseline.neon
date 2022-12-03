@@ -34,3 +34,33 @@ parameters:
 			message: "#^Parameter \\#1 \\$objectOrClass of class ReflectionClass constructor expects class\\-string\\<T of object\\>\\|T of object, string given\\.$#"
 			count: 1
 			path: src/Request/ParamConverter/DtoParamConverter.php
+
+		-
+			message: "#^Method BaptisteContreras\\\\SymfonyRequestParamBundle\\\\Service\\\\Formatter\\\\DefaultJsonFormatter\\:\\:format\\(\\) has parameter \\$currentResponse with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Service/Formatter/DefaultJsonFormatter.php
+
+		-
+			message: "#^Method BaptisteContreras\\\\SymfonyRequestParamBundle\\\\Service\\\\Formatter\\\\DefaultJsonFormatter\\:\\:format\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Service/Formatter/DefaultJsonFormatter.php
+
+		-
+			message: "#^Method BaptisteContreras\\\\SymfonyRequestParamBundle\\\\Service\\\\Formatter\\\\JsonFormatterInterface\\:\\:format\\(\\) has parameter \\$currentResponse with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Service/Formatter/JsonFormatterInterface.php
+
+		-
+			message: "#^Method BaptisteContreras\\\\SymfonyRequestParamBundle\\\\Service\\\\Formatter\\\\JsonFormatterInterface\\:\\:format\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Service/Formatter/JsonFormatterInterface.php
+
+		-
+			message: "#^Method BaptisteContreras\\\\SymfonyRequestParamBundle\\\\Service\\\\Formatter\\\\ValidationErrorJsonFormatter\\:\\:format\\(\\) has parameter \\$currentResponse with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Service/Formatter/ValidationErrorJsonFormatter.php
+
+		-
+			message: "#^Method BaptisteContreras\\\\SymfonyRequestParamBundle\\\\Service\\\\Formatter\\\\ValidationErrorJsonFormatter\\:\\:format\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Service/Formatter/ValidationErrorJsonFormatter.php

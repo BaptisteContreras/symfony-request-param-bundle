@@ -5,52 +5,36 @@
         <service id="BaptisteContreras\SymfonyRequestParamBundle\Service\Provider\JsonDtoProvider" class="BaptisteContreras\SymfonyRequestParamBundle\Service\Provider\JsonDtoProvider" public="false">
             <argument type="service" id="serializer" />
             <argument type="service" id="logger" />
-            <tag name="request-param.dto-provider-driver" />
+            <tag name="request_param.dto-provider-driver" />
         </service>
-        <service id="request-param.dto.provider.json" alias="BaptisteContreras\SymfonyRequestParamBundle\Service\Provider\JsonDtoProvider" public="true" />
+        <service id="request_param.dto.provider.json" alias="BaptisteContreras\SymfonyRequestParamBundle\Service\Provider\JsonDtoProvider" public="true" />
 
         <service id="BaptisteContreras\SymfonyRequestParamBundle\Service\Provider\GenericDtoProvider" class="BaptisteContreras\SymfonyRequestParamBundle\Service\Provider\GenericDtoProvider" public="false">
-            <argument type="tagged_iterator" tag="request-param.dto-provider-driver"/>
+            <argument type="tagged_iterator" tag="request_param.dto-provider-driver"/>
         </service>
-        <service id="request-param.dto.provider.generic" alias="BaptisteContreras\SymfonyRequestParamBundle\Service\Provider\GenericDtoProvider" public="true" />
+        <service id="request_param.dto.provider.generic" alias="BaptisteContreras\SymfonyRequestParamBundle\Service\Provider\GenericDtoProvider" public="true" />
 
         <service id="BaptisteContreras\SymfonyRequestParamBundle\Service\Validator\GenericDtoValidator" class="BaptisteContreras\SymfonyRequestParamBundle\Service\Validator\GenericDtoValidator" public="false">
-            <argument type="tagged_iterator" tag="request-param.dto-validator-driver"/>
+            <argument type="tagged_iterator" tag="request_param.dto-validator-driver"/>
         </service>
-        <service id="request-param.dto.validator.generic" alias="BaptisteContreras\SymfonyRequestParamBundle\Service\Validator\GenericDtoValidator" public="true" />
+        <service id="request_param.dto.validator.generic" alias="BaptisteContreras\SymfonyRequestParamBundle\Service\Validator\GenericDtoValidator" public="true" />
 
         <service id="BaptisteContreras\SymfonyRequestParamBundle\Service\Validator\DefaultDtoValidator" class="BaptisteContreras\SymfonyRequestParamBundle\Service\Validator\DefaultDtoValidator" public="false">
             <argument type="service" id="validator" />
-            <tag name="request-param.dto-validator-driver" />
+            <tag name="request_param.dto-validator-driver" />
         </service>
-        <service id="request-param.dto.validator.default" alias="BaptisteContreras\SymfonyRequestParamBundle\Service\Validator\DefaultDtoValidator" public="true" />
+        <service id="request_param.dto.validator.default" alias="BaptisteContreras\SymfonyRequestParamBundle\Service\Validator\DefaultDtoValidator" public="true" />
 
         <service id="BaptisteContreras\SymfonyRequestParamBundle\Service\Handler\Error\ErrorHandler" class="BaptisteContreras\SymfonyRequestParamBundle\Service\Handler\Error\ErrorHandler" public="false" />
-        <service id="request-param.handler.error.default" alias="BaptisteContreras\SymfonyRequestParamBundle\Service\Handler\Error\ErrorHandler" public="true" />
+        <service id="request_param.handler.error.default" alias="BaptisteContreras\SymfonyRequestParamBundle\Service\Handler\Error\ErrorHandler" public="true" />
 
-        <service id="BaptisteContreras\SymfonyRequestParamBundle\Service\Presenter\JsonErrorPresenter" class="BaptisteContreras\SymfonyRequestParamBundle\Service\Presenter\JsonErrorPresenter" public="false" >
-            <tag name="request-param.error-presenter-driver" />
-        </service>
-        <service id="request-param.error.presenter.json" alias="BaptisteContreras\SymfonyRequestParamBundle\Service\Presenter\JsonErrorPresenter" public="true" />
-
-        <service id="BaptisteContreras\SymfonyRequestParamBundle\Service\Presenter\GenericErrorPresenter" class="BaptisteContreras\SymfonyRequestParamBundle\Service\Presenter\GenericErrorPresenter" public="false">
-            <argument type="tagged_iterator" tag="request-param.error-presenter-driver"/>
-        </service>
-        <service id="request-param.error.presenter.generic" alias="BaptisteContreras\SymfonyRequestParamBundle\Service\Presenter\GenericErrorPresenter" public="true" />
-
-
-
-        <service id="BaptisteContreras\SymfonyRequestParamBundle\Listener\RequestDtoExceptionListener" class="BaptisteContreras\SymfonyRequestParamBundle\Listener\RequestDtoExceptionListener" public="false">
-            <argument type="service" id="request-param.error.presenter.generic" />
-            <tag name="kernel.event_listener" event="kernel.exception"/>
-        </service>
 
         <service id="BaptisteContreras\SymfonyRequestParamBundle\Request\ParamConverter\DtoParamConverter" class="BaptisteContreras\SymfonyRequestParamBundle\Request\ParamConverter\DtoParamConverter" public="false">
-            <argument type="service" id="request-param.dto.provider.generic" />
-            <argument type="service" id="request-param.dto.validator.generic" />
-            <argument type="service" id="request-param.handler.error.default" />
+            <argument type="service" id="request_param.dto.provider.generic" />
+            <argument type="service" id="request_param.dto.validator.generic" />
+            <argument type="service" id="request_param.handler.error.default" />
             <tag name="request.param_converter" />
         </service>
-        <service id="request-param.dto.param.converter" alias="BaptisteContreras\SymfonyRequestParamBundle\Request\ParamConverter\DtoParamConverter" public="true" />
+        <service id="request_param.dto.param.converter" alias="BaptisteContreras\SymfonyRequestParamBundle\Request\ParamConverter\DtoParamConverter" public="true" />
     </services>
 </container>

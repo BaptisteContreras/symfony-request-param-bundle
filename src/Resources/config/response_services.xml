@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+
+        <service id="BaptisteContreras\SymfonyRequestParamBundle\Listener\RequestDtoExceptionListener" class="BaptisteContreras\SymfonyRequestParamBundle\Listener\RequestDtoExceptionListener" public="false">
+            <argument type="service" id="request_param.error.presenter.generic" />
+            <tag name="kernel.event_listener" event="kernel.exception"/>
+        </service>
+
+        <service id="BaptisteContreras\SymfonyRequestParamBundle\Service\Formatter\DefaultJsonFormatter" class="BaptisteContreras\SymfonyRequestParamBundle\Service\Formatter\DefaultJsonFormatter" public="false" />
+        <service id="request_param.response.formatter.json.default" alias="BaptisteContreras\SymfonyRequestParamBundle\Service\Formatter\DefaultJsonFormatter" public="false" />
+
+        <service id="BaptisteContreras\SymfonyRequestParamBundle\Service\Formatter\ValidationErrorJsonFormatter" class="BaptisteContreras\SymfonyRequestParamBundle\Service\Formatter\ValidationErrorJsonFormatter" public="false" >
+            <argument type="service" id=".inner"/>
+        </service>
+        <service id="request_param.response.formatter.json.validation" alias="BaptisteContreras\SymfonyRequestParamBundle\Service\Formatter\ValidationErrorJsonFormatter" public="false" />
+
+        <stack id="stack.response.formatter.json.bad_request">
+            <service alias="request_param.response.formatter.json.validation">
+
+            </service>
+            <service alias="request_param.response.formatter.json.default" />
+        </stack>
+
+        <stack id="stack.response.formatter.json.technical_error">
+            <service alias="request_param.response.formatter.json.default" />
+        </stack>
+
+        <service id="BaptisteContreras\SymfonyRequestParamBundle\Service\Presenter\JsonErrorPresenter" class="BaptisteContreras\SymfonyRequestParamBundle\Service\Presenter\JsonErrorPresenter" public="false" >
+            <argument type="service" id="stack.response.formatter.json.bad_request"/>
+            <argument type="service" id="stack.response.formatter.json.technical_error"/>
+            <tag name="request_param.error-presenter-driver" />
+        </service>
+        <service id="request_param.error.presenter.json" alias="BaptisteContreras\SymfonyRequestParamBundle\Service\Presenter\JsonErrorPresenter" public="true" />
+
+        <service id="BaptisteContreras\SymfonyRequestParamBundle\Service\Presenter\GenericErrorPresenter" class="BaptisteContreras\SymfonyRequestParamBundle\Service\Presenter\GenericErrorPresenter" public="false">
+            <argument type="tagged_iterator" tag="request_param.error-presenter-driver"/>
+        </service>
+        <service id="request_param.error.presenter.generic" alias="BaptisteContreras\SymfonyRequestParamBundle\Service\Presenter\GenericErrorPresenter" public="true" />
+
+    </services>
+</container>
