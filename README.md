@@ -184,7 +184,7 @@ class RegisterController extends AbstractApiController
 For the moment only the **json** source is supported. You can extend the bundle by creating a **DtoProviderDriverInterface** for your needs.
 Any object that implements this interface will be used internally without any additional action.
 
-When your custom provider returns true when its **supports** method is called, it will be selected for the deserialization.
+When your custom provider returns true if its **supports** method is called, it will be selected for the deserialization.
 
 Here is an example for an XML provider.
 
@@ -413,7 +413,7 @@ We need to add a little more configuration in the **services.yaml**
       - App\CustomJsonFormatter: ~
       - alias: stack_response_formatter_json_bad_request_default  
       # In this configuration, our formatter is the first in the chain, and we include the default chain
-      # stack_response_formatter_json_bad_request_default is an alias for request_param.response.formatter.json.validation AND request_param.response.formatter.json.default
+      # stack_response_formatter_json_bad_request_default is an alias for request_param.response.formatter.json.validation AND request_param.response.formatter.json.default  
 ```
 
 And voila 
