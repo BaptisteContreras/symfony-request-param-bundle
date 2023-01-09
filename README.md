@@ -23,6 +23,13 @@ class RegisterController extends AbstractApiController
 
 In our example,`$registerRequest` object will be built with the data in the request and validated.
 
+## Installation
+
+```
+composer require baptiste-contreras/symfony-request-param-bundle
+```
+
+
 ## DtoRequestParam parameters
 
 Several parameters are available for the **DtoRequestParam**, and it let you modify the behavior of the DTO injection.
